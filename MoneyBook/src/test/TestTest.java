@@ -9,6 +9,7 @@ public class TestTest {
 	@Test
 	public void testMain() {
 		fail("Not yet implemented");
+		// hello
 	}
 
 }
