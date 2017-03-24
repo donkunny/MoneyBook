@@ -1,6 +1,6 @@
 package moneybook.model.dto;
 
-public enum ExpenseType {
+public enum ExpenseType{
 	Food, // 식비
 	Communication, //통신
 	DailyItem, // 생활용품
