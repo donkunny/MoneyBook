@@ -1,3 +1,6 @@
+/**
+ * 지출타입
+ */
 package moneybook.model.dto;
 
 public enum ExpenseType{

@@ -1,14 +1,18 @@
+/**
+ * Money로 부터 상속받은 지출 클래스
+ * + 지출타입 변수 추가
+ */
 package moneybook.model.dto;
 
 import java.util.Date;
 
 public class Expense  extends Money{
 
-	private ExpenseType eType;
+	private ExpenseType eType; //지출 타입
 	
 	public Expense(){}
 	
-	public Expense(int cost, Date date, String contents, ExpenseType eType){
+	public Expense(int cost, Date date, String contents, ExpenseType eType) throws Exception{
 		super(cost, date, contents);
 		this.eType = eType;
 	}
@@ -21,17 +25,7 @@ public class Expense  extends Money{
 		this.eType = eType;
 	}
 
-	@Override
 	public String toString() {
-		return "Expense [eType=" + eType + ", toString()=" + super.toString() + "]";
+	      return "\t[지출]" + eType + "\t" + super.toString() + "\t";
 	}
-
-	// 직접
-	@Override
-	public boolean equals(Object obj) {
-
-		return true;
-	}
-	
-	
 }
