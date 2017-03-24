@@ -21,10 +21,4 @@ public class MoneyBook {
 	public void setmList(ArrayList<Money> mList) {
 		this.mList = mList;
 	}
-
-
-	
-	
-	
-	
 }
