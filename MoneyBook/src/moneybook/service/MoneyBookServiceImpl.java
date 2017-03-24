@@ -1,3 +1,7 @@
+/**
+ * MoneyBook 인퍼테이스 구현 클래스
+ * Singleton형태로 구현
+ */
 package moneybook.service;
 
 import java.util.Date;
@@ -5,7 +9,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import moneybook.exception.TypeException;
+import moneybook.exception.CostException;
 import moneybook.model.dto.Expense;
 import moneybook.model.dto.ExpenseType;
 import moneybook.model.dto.Income;
@@ -38,6 +42,9 @@ public class MoneyBookServiceImpl implements MoneyBookService{
 
 	@Override
 	public void updateCost(int index, int cost) throws Exception {
+		if(cost <= 0)
+			throw new CostException("0보다 같거나 작은 숫자는입력할 수 없습니다.");
+		
 		Money money = MoneyBook.mMap.get(index);
 		money.setCost(cost);;
 		MoneyBook.mMap.put(index, money);
@@ -52,9 +59,6 @@ public class MoneyBookServiceImpl implements MoneyBookService{
 
 	@Override
 	public void updateEType(int index, ExpenseType eType) throws Exception {
-		if(!(eType instanceof ExpenseType))
-			throw new TypeException();
-		
 		Expense money = (Expense)MoneyBook.mMap.get(index);
 		money.seteType(eType);;
 		MoneyBook.mMap.put(index, money);
@@ -120,10 +124,26 @@ public class MoneyBookServiceImpl implements MoneyBookService{
 		}
 		return sum;
 	}
+
+	public int totalMoney() throws Exception {
+		int totalMoney = 0;
+		Money m = null;
+		for (int i = 0; i < MoneyBook.mMap.size(); i++) {
+			m = MoneyBook.mMap.get(i);
+			if (m instanceof Expense) {
+				totalMoney = totalMoney - m.getCost();
+			} else if (m instanceof Income) {
+				totalMoney = totalMoney + m.getCost();
+			}
+		}
+		return totalMoney;
+	}
 	
-	/**
-	 * 테스트 코드
+	
+	/*
+	 * =============================JUnit 테스트 코드===================
 	 */
+
 	//@Test
 	public void registTest(){
 		try {
@@ -163,7 +183,7 @@ public class MoneyBookServiceImpl implements MoneyBookService{
 		System.out.println(Utils.getIMap().toString());
 	}
 	
-	@Test
+	// @Test
 	public void updateTest(){
 		try {
 			registMoney(new Expense(10000, new Date(2017, 3, 24), "순두부찌개", ExpenseType.Food));
@@ -171,7 +191,7 @@ public class MoneyBookServiceImpl implements MoneyBookService{
 			registMoney(new Expense(100, new Date(2017, 3, 24), "순두부찌개", ExpenseType.Food));
 			
 			updateContents(0, "된장찌개");
-			updateCost(0, 5000);
+			updateCost(0, 0);
 			updateDate(0, new Date(2017, 3, 23));
 			updateEType(0, ExpenseType.Beuty);
 			

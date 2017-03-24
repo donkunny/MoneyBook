@@ -1,19 +1,27 @@
 /**
- * 
+ * Expense, Income의 부모클래스
+ * 비용, 날짜, 세부내역 변수를 갖는다.
  */
 package moneybook.model.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import moneybook.exception.CostException;
+
 public class Money {
-	private int index; // 인덱스
 	private int  cost; // 비용
 	private Date date;	// 날짜
-	private String contents; // 세부 내역
+	private String contents; // 세부내역
+//	private SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Money(){}
 	
-	public Money(int cost, Date date, String contents){
+	public Money(int cost, Date date, String contents) throws Exception{
+		// 0보다 작은 값 입력시 예외 처리
+		if(cost <=0)
+			throw new CostException("0보다 작거나 같은 값을 입력할 수 없습니다.");
+		
 		this.cost = cost;
 		this.date = date;
 		this.contents = contents;
@@ -22,7 +30,11 @@ public class Money {
 	public int getCost() {
 		return cost;
 	}
-	public void setCost(int cost) {
+	public void setCost(int cost) throws Exception{
+		// 0보다 작은 값 입력시 예외 처리
+		if(cost <=0)
+			throw new CostException("0보다 작거나 같은 값을 입력할 수 없습니다.");
+		
 		this.cost = cost;
 	}
 	public Date getDate() {
@@ -38,18 +50,21 @@ public class Money {
 		this.contents = contents;
 	}
 
-	@Override
 	public String toString() {
-		return "Money [cost=" + cost + ", date=" + date + ", contents=" + contents + "]";
+	      return "\t" + cost + "\t\t" + convertYear(date) +"년 " + convertMonth(date) +"월  " + date.getDate()+ "일" + "\t" + contents + "\t";
 	}
-
-	// 직접
-	@Override
-	public boolean equals(Object obj) {
-
-		return true;
-	}
-
 	
+	/**
+	 * 날짜 최적화 메소드
+	 * @param date
+	 * @return
+	 */
+	public int convertYear(Date date){
+		return date.getYear()+1900;
+	}
+	
+	public int convertMonth(Date date){
+		return date.getMonth() + 1;
+	}
 	
 }

@@ -1,5 +1,6 @@
 /**
- * 설명
+ * Money로 부터 상속받은 수입 클래스
+ * + 수입타입 변수 추가
  */
 package moneybook.model.dto;
 
@@ -7,9 +8,9 @@ import java.util.Date;
 
 public class Income extends Money{
 	
-	private IncomeType iType;
+	private IncomeType iType;	// 수입타입
 	
-	public Income(int cost, Date date, String contents, IncomeType iType){
+	public Income(int cost, Date date, String contents, IncomeType iType) throws Exception{
 		super(cost, date, contents);
 		this.iType = iType;
 	}
@@ -22,19 +23,7 @@ public class Income extends Money{
 		this.iType = iType;
 	}
 
-	@Override
 	public String toString() {
-		return "Income [iType=" + iType + ", toString()=" + super.toString() + "]";
+	      return "\t[수입]" + iType + "\t" + super.toString() + "\t";
 	}
-
-	
-	// 직접
-	@Override
-	public boolean equals(Object obj) {
-	
-		return true;
-	}
-
-	
-	
 }
