@@ -6,19 +6,17 @@ package moneybook.model.dto;
 import java.util.Date;
 
 public class Money {
-	private static int index=1; // 인덱스
+	private int index; // 인덱스
 	private int  cost; // 비용
 	private Date date;	// 날짜
 	private String contents; // 세부 내역
 	
 	public Money(){}
 	
-	public Money(int cost, Date date, String contents){
-		this.index++;
+	public Money(int cost, Date date, String contents){		
 		this.cost = cost;
 		this.date = date;
-		this.contents = contents;
-		
+		this.contents = contents;		
 	}
 	
 	public int getIndex() {
